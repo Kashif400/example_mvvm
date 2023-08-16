@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
+
 import '../Data/Response/api_response.dart';
 import '../Model/movies_model.dart';
-import '../Repository/home_repository.dart';
+import '../respository/home_repository.dart';
 
 class HomeViewViewModel with ChangeNotifier {
   final _myRepo = HomeRepository();
@@ -17,9 +18,9 @@ class HomeViewViewModel with ChangeNotifier {
     setMoviesList(ApiResponse.loading());
 
     _myRepo.fetchMoviesList().then((value) {
-      setMoviesList(ApiResponse.completed());
+      setMoviesList(ApiResponse.completed(value));
     }).onError((error, stackTrace) {
-      setMoviesList(ApiResponse.error());
+      setMoviesList(ApiResponse.error(error.toString()));
     });
   }
 }

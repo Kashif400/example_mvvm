@@ -1,30 +1,37 @@
 import 'package:flutter/material.dart';
 
+import '../color.dart';
+
 class RoundButton extends StatelessWidget {
-  final VoidCallback pressed;
   final String title;
   final bool loading;
-  const RoundButton(
-      {super.key,
-      required this.pressed,
-      required this.title,
-      this.loading = false});
+  final VoidCallback onPress;
+  const RoundButton({
+    Key? key,
+    required this.title,
+    this.loading = false,
+    required this.onPress,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: pressed,
+      onTap: onPress,
       child: Container(
         height: 40,
         width: 200,
         decoration: BoxDecoration(
-            color: Colors.blueGrey, borderRadius: BorderRadius.circular(10)),
+            color: AppColors.buttonColor,
+            borderRadius: BorderRadius.circular(10)),
         child: Center(
             child: loading
                 ? CircularProgressIndicator(
                     color: Colors.white,
                   )
-                : Text(title)),
+                : Text(
+                    title,
+                    style: TextStyle(color: AppColors.whiteColor),
+                  )),
       ),
     );
   }
